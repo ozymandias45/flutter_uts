@@ -28,7 +28,7 @@ class FirstPage extends StatelessWidget {
                     'Welcome to the app designed to help you discover communities tailored to your interests.',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 17,    
+                      fontSize: 17,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -43,18 +43,30 @@ class FirstPage extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.all(20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.arrow_circle_right_outlined,
-                    color: Colors.yellow,
-                    size: 40.0,
-                  )
-                ],
-              ),
+              child: NavigateButton(),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class NavigateButton extends StatelessWidget {
+  const NavigateButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: Center(
+        child: Ink(
+          child: IconButton(
+            icon: const Icon(Icons.arrow_circle_right_outlined),
+            color: Colors.yellow,
+            iconSize: 35,
+            onPressed: () {},
+          ),
         ),
       ),
     );
