@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../new-user/secondPage.dart';
 
 class FirstPage extends StatelessWidget {
   const FirstPage({super.key});
@@ -65,7 +66,12 @@ class NavigateButton extends StatelessWidget {
             icon: const Icon(Icons.arrow_circle_right_outlined),
             color: Colors.yellow,
             iconSize: 35,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SecondPage()),
+              );
+            },
           ),
         ),
       ),
