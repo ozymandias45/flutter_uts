@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import '../new-user/firstPage.dart';
+import 'dart:async';
 
 enum Gender { male, female }
 
@@ -124,7 +127,22 @@ class _MyFormState extends State<MyForm> {
                     _validate = _addressController.text.isEmpty;
                   });
                   if (_formKey.currentState!.validate()) {
-                    _submitForm();
+                    Fluttertoast.showToast(
+                        msg: "Berhasil Daftar!",
+                        backgroundColor: Colors.green,
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 2);
+                    Timer(const Duration(seconds: 2), () {
+                      _submitForm();
+                    });
+                  } else {
+                    Fluttertoast.showToast(
+                        msg: "Tolong lengkapi form yang masih kosong!",
+                        backgroundColor: Colors.red,
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 3);
                   }
                 }
               },
@@ -137,12 +155,19 @@ class _MyFormState extends State<MyForm> {
   }
 
   void _submitForm() {
-    // Access form data here, for example:
     String name = _nameController.text;
     String email = _emailController.text;
+    String phone = _phoneController.text;
     String address = _addressController.text;
 
-    // Do something with the form data, such as sending it to an API or displaying it.
-    print('Name: $name, Email: $email, Address: $address');
+    if (name.isNotEmpty &&
+        email.isNotEmpty &&
+        phone.isNotEmpty &&
+        address.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const FirstPage()),
+      );
+    }
   }
 }
