@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SecondPage extends StatelessWidget {
   const SecondPage({super.key});
@@ -7,7 +8,7 @@ class SecondPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Form Page'),
+        title: const Text('Daftar Identitas Anda'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -24,9 +25,11 @@ class MyForm extends StatefulWidget {
 
 class _MyFormState extends State<MyForm> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _addressController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _addressController = TextEditingController();
+  bool _validate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,47 +40,63 @@ class _MyFormState extends State<MyForm> {
         children: <Widget>[
           TextFormField(
             controller: _nameController,
-            decoration: InputDecoration(labelText: 'Name'),
+            decoration: const InputDecoration(labelText: 'Nama'),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your name';
+                return 'Silahkan masukan nama Anda';
               }
               return null;
             },
           ),
+          const SizedBox(height: 15),
           TextFormField(
             controller: _emailController,
             decoration: const InputDecoration(labelText: 'Email'),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your email';
+                return 'Silakan masukkan email Anda';
               }
-              // Add email format validation here if needed
               return null;
             },
           ),
+          const SizedBox(height: 15),
           TextFormField(
-            controller: _addressController,
-            decoration: const InputDecoration(labelText: 'Address'),
+            controller: _phoneController,
+            decoration: const InputDecoration(labelText: 'No. Telepon'),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your address';
+                return 'Silakan masukkan no.telepon Anda';
               }
               return null;
             },
+            keyboardType: TextInputType.phone,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          ),
+          const SizedBox(height: 15),
+          TextField(
+            controller: _addressController,
+            decoration: InputDecoration(
+              labelText: 'Alamat',
+              hintText: 'Masukkan alamat Anda',
+              border: const OutlineInputBorder(),
+              errorText: _validate ? 'Silakan masukkan alamat Anda' : null,
+            ),
+            maxLines: 3,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState != null) {
+                  setState(() {
+                    _validate = _addressController.text.isEmpty;
+                  });
                   if (_formKey.currentState!.validate()) {
-                    // Process the form data
                     _submitForm();
                   }
                 }
               },
-              child: const Text('Submit'),
+              child: const Text('Simpan'),
             ),
           ),
         ],
