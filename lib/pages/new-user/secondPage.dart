@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../new-user/firstPage.dart';
+import '../new-user/NewsPage.dart';
 import 'dart:async';
 
 enum Gender { male, female }
@@ -166,7 +166,7 @@ class _MyFormState extends State<MyForm> {
         address.isNotEmpty) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const FirstPage()),
+        MaterialPageRoute(builder: (context) => NewsPage()),
       );
     }
   }
