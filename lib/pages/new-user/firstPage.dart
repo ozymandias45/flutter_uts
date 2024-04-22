@@ -26,7 +26,7 @@ class FirstPage extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    'Welcome to the app designed to help you discover communities tailored to your interests.',
+                    'Leading News Portal',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 17,

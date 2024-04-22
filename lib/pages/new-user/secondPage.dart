@@ -6,31 +6,92 @@ class SecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: const Center(child: Text("Chat")),
+      appBar: AppBar(
+        title: const Text('Form Page'),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.grey.shade600,
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
-        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: "Chats",
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: MyForm(),
+      ),
+    );
+  }
+}
+
+class MyForm extends StatefulWidget {
+  @override
+  _MyFormState createState() => _MyFormState();
+}
+
+class _MyFormState extends State<MyForm> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _addressController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          TextFormField(
+            controller: _nameController,
+            decoration: InputDecoration(labelText: 'Name'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your name';
+              }
+              return null;
+            },
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group_work),
-            label: "Channels",
+          TextFormField(
+            controller: _emailController,
+            decoration: const InputDecoration(labelText: 'Email'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your email';
+              }
+              // Add email format validation here if needed
+              return null;
+            },
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_box),
-            label: "Profile",
+          TextFormField(
+            controller: _addressController,
+            decoration: const InputDecoration(labelText: 'Address'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your address';
+              }
+              return null;
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState != null) {
+                  if (_formKey.currentState!.validate()) {
+                    // Process the form data
+                    _submitForm();
+                  }
+                }
+              },
+              child: const Text('Submit'),
+            ),
           ),
         ],
       ),
     );
-    ;
+  }
+
+  void _submitForm() {
+    // Access form data here, for example:
+    String name = _nameController.text;
+    String email = _emailController.text;
+    String address = _addressController.text;
+
+    // Do something with the form data, such as sending it to an API or displaying it.
+    print('Name: $name, Email: $email, Address: $address');
   }
 }
