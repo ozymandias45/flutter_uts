@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+enum Gender { male, female }
+
 class SecondPage extends StatelessWidget {
   const SecondPage({super.key});
 
@@ -29,6 +31,7 @@ class _MyFormState extends State<MyForm> {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _addressController = TextEditingController();
+  Gender _selectedGender = Gender.male;
   bool _validate = false;
 
   @override
@@ -71,6 +74,35 @@ class _MyFormState extends State<MyForm> {
             },
             keyboardType: TextInputType.phone,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          ),
+          const SizedBox(height: 20),
+          DropdownButtonFormField<Gender>(
+            value: _selectedGender,
+            onChanged: (value) {
+              setState(() {
+                _selectedGender = value!;
+              });
+            },
+            items: const [
+              DropdownMenuItem(
+                value: Gender.male,
+                child: Text('Laki-laki'),
+              ),
+              DropdownMenuItem(
+                value: Gender.female,
+                child: Text('Perempuan'),
+              ),
+            ],
+            decoration: const InputDecoration(
+              labelText: 'Jenis Kelamin',
+              border: OutlineInputBorder(),
+            ),
+            validator: (value) {
+              if (value == null) {
+                return 'Silakan pilih jenis kelamin';
+              }
+              return null;
+            },
           ),
           const SizedBox(height: 15),
           TextField(
