@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/new-user/firstPage.dart';
+import 'pages/new-user/newsPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Ramdan Nugraha',
       theme: ThemeData(
         primarySwatch: Colors.cyan,
       ),
       debugShowCheckedModeBanner: false,
-      home: const FirstPage(),
+      home: NewsPage(),
     );
   }
 }
