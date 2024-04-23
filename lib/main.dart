@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/new-user/newsPage.dart';
+import 'package:learn_1/pages/new-user/firstPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.cyan,
       ),
       debugShowCheckedModeBanner: false,
-      home: NewsPage(),
+      home: const FirstPage(),
     );
   }
 }

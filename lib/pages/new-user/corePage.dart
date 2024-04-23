@@ -2,17 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class NewsPage extends StatelessWidget {
+
+class CorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('NAYANAKA NEWS'),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: const TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.newspaper_outlined)),
+                Tab(icon: Icon(Icons.account_circle_rounded)),
+              ],
+            ),
+            title: const Text('NAYANAKA NEWS'), // Removed const keyword
+          ),
+          body: TabBarView(
+            children: [
+              NewsList(),
+              const Icon(Icons.directions_transit),
+            ],
+          ),
+        ),
       ),
-      body: NewsList(),
     );
   }
 }
+
 
 class NewsList extends StatefulWidget {
   @override
@@ -44,7 +63,7 @@ class _NewsListState extends State<NewsList> {
             child: CircularProgressIndicator(
               backgroundColor: Colors.black54,
               valueColor: AlwaysStoppedAnimation<Color>(Colors
-                  .blue), // Berikan warna biru pada CircularProgressIndicator
+                  .blue),
             ),
           );
         } else if (snapshot.hasError) {
