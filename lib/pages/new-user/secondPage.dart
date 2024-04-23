@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../new-user/NewsPage.dart';
 import 'dart:async';
+
+import 'package:learn_1/pages/new-user/corePage.dart';
 
 enum Gender { male, female }
 
@@ -166,7 +167,13 @@ class _MyFormState extends State<MyForm> {
         address.isNotEmpty) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => NewsPage()),
+        MaterialPageRoute(
+            builder: (context) => CorePage(
+                  name: name,
+                  email: email,
+                  phone: phone,
+                  address: address,
+                )),
       );
     }
   }

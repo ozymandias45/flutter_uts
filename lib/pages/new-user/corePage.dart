@@ -2,8 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-
 class CorePage extends StatelessWidget {
+  final String name;
+  final String email;
+  final String phone;
+  final String address;
+
+  CorePage(
+      {required this.name,
+      required this.email,
+      required this.phone,
+      required this.address});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,12 +28,17 @@ class CorePage extends StatelessWidget {
                 Tab(icon: Icon(Icons.account_circle_rounded)),
               ],
             ),
-            title: const Text('NAYANAKA NEWS'), // Removed const keyword
+            title: const Text('NAYANAKA NEWS'),
           ),
           body: TabBarView(
             children: [
               NewsList(),
-              const Icon(Icons.directions_transit),
+              Profile(
+                name: name,
+                email: email,
+                phone: phone,
+                address: address,
+              ),
             ],
           ),
         ),
@@ -32,7 +47,7 @@ class CorePage extends StatelessWidget {
   }
 }
 
-
+// NEWS LIST
 class NewsList extends StatefulWidget {
   @override
   _NewsListState createState() => _NewsListState();
@@ -62,8 +77,7 @@ class _NewsListState extends State<NewsList> {
           return const Center(
             child: CircularProgressIndicator(
               backgroundColor: Colors.black54,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors
-                  .blue),
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
             ),
           );
         } else if (snapshot.hasError) {
@@ -106,6 +120,75 @@ class _NewsListState extends State<NewsList> {
           );
         }
       },
+    );
+  }
+}
+
+// MY PROFILE
+class Profile extends StatefulWidget {
+  @override
+  final String name;
+  final String email;
+  final String phone;
+  final String address;
+
+  Profile(
+      {required this.name,
+      required this.email,
+      required this.phone,
+      required this.address});
+
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Profil Saya'),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _buildInfoItem('Nama', widget.name),
+              _buildInfoItem('Alamat', widget.address),
+              _buildInfoItem('No.Hp', widget.phone),
+              _buildInfoItem('Email', widget.email),
+              _buildInfoItem('Gender', 'Male'),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoItem(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            label + ': ',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
