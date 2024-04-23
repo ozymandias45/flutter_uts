@@ -155,11 +155,23 @@ class _MyFormState extends State<MyForm> {
     );
   }
 
+  String genderToString(Gender gender) {
+  switch (gender) {
+    case Gender.male:
+      return 'Laki-laki';
+    case Gender.female:
+      return 'Perempuan';
+    default:
+      return '';
+  }
+}
+
   void _submitForm() {
     String name = _nameController.text;
     String email = _emailController.text;
     String phone = _phoneController.text;
     String address = _addressController.text;
+    String gender = genderToString(_selectedGender);
 
     if (name.isNotEmpty &&
         email.isNotEmpty &&
@@ -173,6 +185,7 @@ class _MyFormState extends State<MyForm> {
                   email: email,
                   phone: phone,
                   address: address,
+                  gender: gender
                 )),
       );
     }

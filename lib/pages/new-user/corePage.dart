@@ -7,12 +7,14 @@ class CorePage extends StatelessWidget {
   final String email;
   final String phone;
   final String address;
+  final String gender;
 
   CorePage(
       {required this.name,
       required this.email,
       required this.phone,
-      required this.address});
+      required this.address,
+      required this.gender});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class CorePage extends StatelessWidget {
                 email: email,
                 phone: phone,
                 address: address,
+                gender: gender
               ),
             ],
           ),
@@ -131,12 +134,14 @@ class Profile extends StatefulWidget {
   final String email;
   final String phone;
   final String address;
+  final String gender;
 
   Profile(
       {required this.name,
       required this.email,
       required this.phone,
-      required this.address});
+      required this.address,
+      required this.gender});
 
   _ProfileState createState() => _ProfileState();
 }
@@ -159,7 +164,7 @@ class _ProfileState extends State<Profile> {
               _buildInfoItem('Alamat', widget.address),
               _buildInfoItem('No.Hp', widget.phone),
               _buildInfoItem('Email', widget.email),
-              _buildInfoItem('Gender', 'Male'),
+              _buildInfoItem('Gender', widget.gender),
             ],
           ),
         ),
